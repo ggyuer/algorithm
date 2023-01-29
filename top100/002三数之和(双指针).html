@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
+
+        你返回所有和为 0 且不重复的三元组。
+        
+        注意：答案中不可以包含重复的三元组。
+        
+        示例 1：
+        
+        输入：nums = [-1,0,1,2,-1,-4]
+        输出：[[-1,-1,2],[-1,0,1]]
+        解释：
+        nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+        nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+        nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+        不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+        注意，输出的顺序和三元组的顺序并不重要。
+        示例 2：
+        
+        输入：nums = [0,1,1]
+        输出：[]
+        解释：唯一可能的三元组和不为 0 。
+        示例 3：
+        
+        输入：nums = [0,0,0]
+        输出：[[0,0,0]]
+        解释：唯一可能的三元组和为 0 。
+      </div>
+      <script>
+          // 暴力解法
+          function threeSum1(nums){
+            let treeSum = [];
+            if(nums.length < 3){
+              return treeSum;
+            }
+            for(let i=0; i<nums.length; i++){
+              for(let j= i+1; j<nums.length; j++){
+                for(let k = j+1; k<nums.length; k++){
+                  if(nums[i] + nums[j] + nums[k] === 0){
+                    const sd = [nums[i],nums[j],nums[k]].sort();
+                    if(!checkArrHave(treeSum,sd)){
+                      treeSum.push(sd);
+                    }
+                  }
+                }
+              }
+            }
+            function sort(arr){
+              for(let i =0; i<arr.length;i++){
+                for(let j = i+1;j<arr.length;j++){
+                  if(arr[i]>arr[j]){
+                    let temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                  }
+                }
+              }
+            }
+            function checkArrIsSame(left,right){
+              let isSame = true;
+              for(let i = 0; i<left.length;i++){
+                if(left[i] !== right[i]){
+                  isSame = false;
+                  break;
+                }
+              }
+              return isSame;
+            }
+            function checkArrHave(arrs,target){
+              let have = false;
+              for(let i = 0; i<arrs.length;i++){
+                if(checkArrIsSame(arrs[i],target)){
+                  have = true;
+                  break;
+                }
+              }
+              return have;
+            }
+            return treeSum;
+          }
+          console.log(threeSum1([-1,0,1,2,-1,-4]));
+          // 双指针
+          function threeSum2(nums,target){
+            let treeSum = [];
+            if(nums.length < 3){
+              return treeSum;
+            }
+            const len = nums.length;
+            nums.sort((a, b) => a - b); // 排序
+            for(let i=0;i<len;i++){
+              if(nums[i]>0) break;
+              if(i>0 && nums[i] === nums[i-1]) continue;
+              let L = i +1;
+              let R = len - 1;
+              while(L<R){
+                const tSum = nums[i] + nums[L] + nums[R];
+                if(tSum === 0){
+                  treeSum.push([nums[i] , nums[L] , nums[R]])
+                  while(L<R && nums[L] === nums[L+1]){
+                    L++;
+                  }
+                  while(L<R && nums[R] === nums[R-1]){
+                    R--;
+                  }
+                  L++;
+                  R--;
+                }  else if (tSum < 0) {
+                  L++;
+                }  else if (tSum > 0) {
+                  R--
+                }
+              }
+            }
+            return treeSum;
+          }
+        function threeSum3(nums) {
+              let ans = [];
+              const len = nums.length;
+              if(nums == null || len < 3) return ans;
+              nums.sort((a, b) => a - b); // 排序
+              for (let i = 0; i < len ; i++) {
+                  if(nums[i] > 0) break; // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+                  if(i > 0 && nums[i] == nums[i-1]) continue; // 去重
+                  let L = i+1;
+                  let R = len-1;
+                  while(L < R){
+                      const sum = nums[i] + nums[L] + nums[R];
+                      if(sum == 0){
+                          ans.push([nums[i],nums[L],nums[R]]);
+                          while (L<R && nums[L] == nums[L+1]) L++; // 去重
+                          while (L<R && nums[R] == nums[R-1]) R--; // 去重
+                          L++;
+                          R--;
+                      }
+                      else if (sum < 0) L++;
+                      else if (sum > 0) R--;
+                  }
+              }        
+              return ans; 
+        };
+          console.log(threeSum2([-1,0,1,2,-1,-4,-2,-3,3,0,4]));
+          console.log(threeSum3([-1,0,1,2,-1,-4,-2,-3,3,0,4]));
+      </script>
+    </body>
+</html>
