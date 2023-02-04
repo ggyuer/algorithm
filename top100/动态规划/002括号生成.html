@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+
+ 
+
+        示例 1：
+        
+        输入：n = 3
+        输出：["((()))","(()())","(())()","()(())","()()()"]
+        示例 2：
+        
+        输入：n = 1
+        输出：["()"]
+         
+        
+        提示：
+        
+        1 <= n <= 8
+          ( 
+          0  1  2  3  4  5
+     )0  ()  ()
+      1
+      2
+      3
+      4
+      5
+      </div>
+      <script>
+         var generateParenthesis = function(n) {
+           if(n === 1){
+             return ['()']
+           }
+           function valid (s){
+             let b = 0;
+             for(let i=0;i<s.length;i++){
+               if(s[i] === '('){
+                 b++;
+               }else{
+                 b--;
+               }
+               if(b < 0){
+                 return false;
+               }
+             }
+             return b === 0;
+           }
+            
+           const ass = [];
+           function gall(s,pos) {
+             if(pos === s.length){
+              if(valid(s)){
+                ass.push([...s]);
+              }
+             }else{
+               s[pos] = '(';
+               gall(s,pos+1);
+               s[pos] = ')';
+               gall(s,pos+1);
+             }
+           }
+          //  const arr = new Array(2*n);
+           gall(new Array(2*n),0)
+           return ass;
+         };
+         console.log(generateParenthesis(3));
+        //  
+        // 只要左括号有剩，就可以选它，然后继续做选择（递归）
+        // 右括号比左括号剩的多，才能选右括号，然后继续做选择（递归） 3.当str的长度为 2 * n 时，结束递归
+
+      </script>
+    </body>
+</html>
