@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。
+
+        树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。 </div>
+      <script>
+      /**
+         * // Definition for a Node.
+         * function Node(val, children) {
+         *    this.val = val;
+         *    this.children = children;
+         * };
+         */
+        function Node(val, children) {
+            this.val = val;
+            this.children = children;
+        };
+
+      /**
+       * @param {Node|null} root
+       * @return {number[][]}
+       */
+      var levelOrder = function(root) {
+          if(!root){
+              return []
+          }
+          let res = []
+          let quene = [root];
+          while(quene.length){
+              let len = quene.length;
+              let ks = [];
+              for(let i=0;i<len;i++){
+                  const node = quene.shift();
+                  ks.push(node.val);
+                  for(const child of node.children){
+                      quene.push(child);
+                  }
+              }
+              res.push(ks);
+          }
+          return res;
+      };
+
+      </script>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        给定一个 n 叉树的根节点  root ，返回 其节点值的 后序遍历 。
+
+        n 叉树 在输入中按层序遍历进行序列化表示，每组子节点由空值 null 分隔（请参见示例）。
+      </div>
+      <script>
+      /**
+         * // Definition for a Node.
+         * function Node(val, children) {
+         *    this.val = val;
+         *    this.children = children;
+         * };
+         */
+        function Node(val, children) {
+            this.val = val;
+            this.children = children;
+        };
+
+        /**
+         * @param {Node|null} root
+         * @return {number[]}
+         */
+        var preorder = function(root) {
+            if(!root){
+                return [];
+            }
+            let res = [];
+            const deep = (node)=>{
+                if(!node){
+                    return
+                }
+                if(node.children){
+                    for(let i=0;i<node.children.length;i++){
+                        deep(node.children[i])
+                    }
+                }
+                res.push(node.val);
+            }
+            deep(root);
+            return res;
+        };
+
+      </script>
+    </body>
+</html>
