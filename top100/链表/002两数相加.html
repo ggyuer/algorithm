@@ -64,6 +64,38 @@
             }
             return hNode;
           }
+
+          // 两两相加
+          var addTwoNumbers = function(l1, l2) {
+            let cL1 = l1;
+            let cL2 = l2;
+            // 新链表
+            let nL3= null;
+            // 返回
+            let rL3= null;
+            // 相加进位
+            let carry = 0;
+            // 为什么是或 就是因为两个链表的长度可能不一样
+            while(cL1 || cL2){
+              let val1 = cL1.val?cL1.val:0;
+              let val2 = cL2.val?cL2.val:0;
+              let sum = val1 + val2 + carry;
+              if(!nL3){
+                nL3 = rL3 = new ListNode(sum%10);
+              }else{
+                nL3.next = new ListNode(sum%10);
+                nL3 = nL3.next;
+              }
+              carry =  Math.floor(sum/10)
+              if(cL1){
+                cL1 = cL1.next;
+              }
+              if(cL2){
+                cL2 = cL2.next;
+              }
+            }
+            return nL3
+          }
       </script>
     </body>
 </html>

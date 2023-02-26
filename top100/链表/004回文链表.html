@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+        输入：head = [1,2,3,4,5], n = 2
+        输出：[1,2,3,5]
+      </div>
+      <script>
+          function ListNode(val, next) {
+            this.val = (val===undefined ? 0 : val)
+            this.next = (next===undefined ? null : next)
+          }
+       /**
+         * Definition for singly-linked list.
+         * function ListNode(val, next) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.next = (next===undefined ? null : next)
+         * }
+         */
+        /**
+         * @param {ListNode} head
+         * @param {number} n
+         * @return {ListNode}
+         */
+        var removeNthFromEnd = function(head, n) {
+          let pre = head;
+          let next = head;
+          let len = 0;
+          while(next){
+            next = next.next;
+            len++;
+          }
+          let i = 0;
+          let curr = head;
+          let dd = null;
+          while(curr){
+            i = i + 1;
+            if(i === len-n+1){
+              dd = curr;
+            }
+          }
+        }
+      </script>
+    </body>
+</html>

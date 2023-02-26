@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        给你一个整数 n ，返回 和为 n 的完全平方数的最少数量 。
+
+        完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。
+        
+        示例 1：
+        
+        输入：n = 12
+        输出：3 
+        解释：12 = 4 + 4 + 4
+        示例 2：
+        
+        输入：n = 13
+        输出：2
+        解释：13 = 4 + 9
+         
+        提示：
+        
+        1 <= n <= 104
+      </div>
+      <script>
+        /**
+         * @param {number} n
+         * @return {number}
+         * 所有
+         * 12 
+         * 1 4 9 
+         * 12 3 1 12 - 0 = 3
+         * // 确定每个数字的最小平方跟所需要的数
+         * // 然后确定当前所需要的由前一个可以退出后一个所需要数字
+         * 如果自己本身是
+         * 1  -> 1      1   
+         * 2  -> 1 + 1  2
+         * 3  -> 1 + 2  3 
+         * 4  -> 4      1
+         * 5  -> 4 + 1  2
+         * 6  -> 5 + 1 -> 4 + 2 3
+         * 7  -> 4 + 3
+         * 8> -> 4 + 4
+         * 9  -> 9 => 1
+         * 10 -> 9 + 1 =2
+         * 11 -> 9 + 2 =>3  
+         * 12 -> 9 + 3 =>4 
+         * 
+         * 17 -> 16 + 1 =>4 
+         * 
+         * 12%9 = 3
+         * 3 isS 
+         * 
+         * 13%9 = 4
+         * 
+         * 15%9 = 5 
+         * */
+        // 公式
+        // dp[i] = n%maxSqrt === 0?1:dp[n-maxSqrt] => 4
+        // dp[i] = n%maxSqrt === 0?1:dp[n-maxSqrt] => 4
+        var numSquares = function(n) {
+            let maxSqrt = 1; // 记录当前循环到的最大平方数
+            let dp = []; // 表示当前数需要的最小平方数
+            function isSqrt(m){
+              return Math.sqrt(m)%1 === 0
+            }
+            let sqs = [];
+            for(let i=1;i<n+1;i++){
+              if(isSqrt(i)){
+                sqs.push(i);
+                maxSqrt = Math.max(maxSqrt,i);
+              }
+              // 计算每一个数的最大平方数和
+            }
+            console.log('---->',sqs,maxSqrt);
+           return sqs;
+        };
+        console.log('---->',numSquares(12));
+      </script>
+    </body>
+</html>

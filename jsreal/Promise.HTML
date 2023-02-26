@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+
+  </body>
+  <script>
+    function MPromise(fn){
+      this.status = 'pendding';
+      this.onFulFilleds = [];
+      this.onRejecteds = [];
+      this.resolve = (value) => {
+        if(this.status === 'pendding'){
+          this.status = 'fulfilled';
+          this.onFulFilleds.forEach(fulled => {
+            fulled(value);
+          });
+        }
+      }
+
+      this.rejected = (reason) => {
+        if(this.status === 'pendding'){
+          this.status = 'rejected';
+          this.onRejecteds.forEach(reject => {
+            reject(reason);
+          });
+        }
+      }
+
+      fn(this.resolve,this.rejected);
+      
+    }
+
+    MPromise.prototype.then = function(onFulFilled,onRejected){
+        return new MPromise((resolve,rejected)=>{
+            console.log('new MPromise',this)
+            this.onFulFilleds.push(onFulFilled);
+            this.onRejecteds.push(onRejected);
+            // resolve();
+            // rejected();
+        })
+    } 
+
+    let mp = new MPromise((resolve,rejected)=>{
+          console.log('----->','开始');
+        setTimeout(()=>{
+          console.log('----->','开始1');
+          resolve('成功了...');
+        },2000)
+    });
+    mp.then(value=>{
+      console.log('---value-->',value)
+      return new MimeType((re)=>{
+        re('sssss');
+      })
+    }).then(v=>{
+      console.log('---sss-->',v)
+    })
+
+    setTimeout(function () {
+  console.log("setTimeout1");
+  new Promise(function (resolve) {
+    resolve();
+  }).then(function () {
+    new Promise(function (resolve) {
+      resolve();
+    }).then(function () {
+      console.log("then4");
+    });
+    console.log("then2");
+  });
+});
+
+new Promise(function (resolve) {
+  console.log("promise1");
+  resolve();
+}).then(function () {
+  console.log("then1");
+});
+
+setTimeout(function () {
+  console.log("setTimeout2");
+});
+
+console.log(2);
+
+queueMicrotask(() => {
+  console.log("queueMicrotask1");
+});
+
+new Promise(function (resolve) {
+  resolve();
+}).then(function () {
+  console.log("then3");
+});
+
+
+  </script>
+</html>

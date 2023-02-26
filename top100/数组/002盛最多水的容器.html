@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+
+        找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+        
+        返回容器可以储存的最大水量。
+      </div>
+      <script>
+        /**
+         * @param {number[]} height
+         * @return {number}
+         */
+        var maxArea = function(height) {
+          let i= 0,j =height.length;
+          let maxArea = 0;
+          // 面积公式 = S= Math.min(height[i],height[j]) * (j-i)
+          while(i<j){
+            const a =  Math.min(height[i],height[j]) * (j-i)
+            maxArea = maxArea> a?maxArea:a;
+            if(height[i] < height[j]){
+              i++;
+            }else{
+              j--;
+            }
+          }
+          return maxArea;
+        };
+      </script>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        /**
+        * Definition for singly-linked list.
+        * struct ListNode {
+        *     int val;
+        *     ListNode *next;
+        *     ListNode() : val(0), next(nullptr) {}
+        *     ListNode(int x) : val(x), next(nullptr) {}
+        *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+        * };
+        */
+       class Solution {
+       public:
+           ListNode* reverseList(ListNode* head) {
+       
+           }
+       };
+      </div>
+      <script>
+         /**
+           * Definition for singly-linked list.
+           * function ListNode(val, next) {
+           *     this.val = (val===undefined ? 0 : val)
+           *     this.next = (next===undefined ? null : next)
+           * 
+           *  let prev = null;
+              let curr = head;
+              while (curr) {
+                  const next = curr.next;
+                  curr.next = prev;
+                  prev = curr;
+                  curr = next;
+              }
+              return prev;
+
+           * }
+           * 1 2 3 4 5
+           * 5 4 3 2 1
+           */
+
+          /**
+           * @param {ListNode} head
+           * @return {ListNode}
+           */
+          function ListNode(val, next) {
+              this.val = (val===undefined ? 0 : val)
+              this.next = (next===undefined ? null : next)
+          }
+
+          // 反转链表 就是将后一个节点的next指向前一个节点
+          var reverseList = function(head) {
+            let pre = null;
+            let curr = head;
+            while(curr){
+              const next = curr.next;
+              curr.next = pre;
+              pre = curr;
+              curr = next;
+            }
+            return pre;
+          };
+      </script>
+    </body>
+</html>

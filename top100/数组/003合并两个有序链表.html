@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>top100</title>
+        <meta  charset="utf-8">
+        <style type="text/css"></style>
+    </head>
+    <body>
+      <div>
+        将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+
+ 
+      </div>
+      <script>
+      /**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(list1, list2) {
+    if(!list1 && !list2){
+        return list1;
+    }
+    if(list1 && !list2){
+        return list1;
+    }
+    if(!list1 && list2){
+        return list2;
+    }
+    let nList,nOList = null;
+    let l1 = list1;
+    let l2 = list2;
+    let tag = 0;
+    while(l1 && l2){
+        if(l1.val > l2.val){
+            if(!nList){
+                nList = nOList = new ListNode(l2.val);
+            }else{
+                nOList.next = new ListNode(l2.val);
+                nOList = nOList.next;
+            }
+             if(l2){
+                l2 = l2.next;
+            }
+        }else{
+            if(!nList){
+                nList = nOList = new ListNode(l1.val);
+            }else{
+                nOList.next = new ListNode(l1.val)
+                nOList = nOList.next;
+            }
+            if(l1){
+                l1 = l1.next;
+            }
+        }
+    }
+    if(l1){
+        while(l1 && nOList){
+             nOList.next = new ListNode(l1.val)
+             nOList = nOList.next;
+              if(l1){
+                l1 = l1.next;
+            }
+        }
+    }
+      if(l2){
+        while(l2 && nOList){
+             nOList.next = new ListNode(l2.val)
+             nOList = nOList.next;
+              if(l2){
+                l2 = l2.next;
+            }
+        }
+    }
+    return nList;
+};
+      </script>
+    </body>
+</html>
